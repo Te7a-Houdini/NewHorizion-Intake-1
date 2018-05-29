@@ -13,13 +13,18 @@
     </div>
 @endif
 
-<form method="POST" action="/products">
+<form method="POST" action="/products" enctype='multipart/form-data'>
     @csrf
 
 Name <input type="text" name="name" value="{{old('name')}}">
 <br><br>
 Category ID <input type="text" name="category_id" value="{{old('category_id')}}">
 <br> <br>
+
+Image
+<input type="file" name="image">
+
+<br><br>
 <input type="submit" value="Create Product">
 </form>
 

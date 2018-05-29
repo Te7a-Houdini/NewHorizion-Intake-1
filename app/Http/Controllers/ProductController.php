@@ -31,15 +31,14 @@ class ProductController extends Controller
         //     'name.min' => 'the product name is too minimum'
         // ]);
 
-
         $name = $request->name;
         $categoryId = $request->category_id;
-        
-        
+        $path = $request->image->store('avatars');
+    
         Product::create([
             'name' => $name,
             'category_id' => $categoryId,
-
+            'image' => $path
         ]);
 
       return redirect()->route('products.index');
