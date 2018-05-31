@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Http\Requests\StoreProductRequest;
+use Storage;
+use Mail;
+use App\Mail\ProductDestroyedMail;
 
 class ProductController extends Controller
 {
@@ -33,7 +36,7 @@ class ProductController extends Controller
 
         $name = $request->name;
         $categoryId = $request->category_id;
-        $path = $request->image->store('avatars');
+        $path = $request->image->store('avatars','public');
     
         Product::create([
             'name' => $name,
@@ -42,5 +45,18 @@ class ProductController extends Controller
         ]);
 
       return redirect()->route('products.index');
+    }
+
+    public function destroy($productId,Request $request)
+    {
+
+        Mail::to($request->user())->send(new ProductDestroyedMail);
+
+        // $product = Product::find($productId);
+        // Storage::disk('public')->delete($product->image);
+        // $product->delete();
+        // // Product::where('id',$productId)->delete();
+        
+        return redirect()->route('products.index');
     }
 }

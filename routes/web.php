@@ -25,3 +25,4 @@ Route::get('/products/create','ProductController@create')->name('products.create
 
 Route::post('/products','ProductController@store')->name('products.store')->middleware('auth');
 
+Route::delete('/products/{id}','ProductController@destroy')->name('products.destroy');
