@@ -8,11 +8,16 @@ use App\Http\Requests\StoreProductRequest;
 use Storage;
 use Mail;
 use App\Mail\ProductDestroyedMail;
+use Log;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProductController extends Controller
 {
     public function index ()
     {
+        Log::info('htting products index method');
+
         $products = Product::get();
 
         return view('products.index')
@@ -58,5 +63,30 @@ class ProductController extends Controller
         // // Product::where('id',$productId)->delete();
         
         return redirect()->route('products.index');
+    }
+
+    public function show($id)
+    {
+        // try {
+        //     throw new Exception('this is exception');
+        // }
+        // catch(Exception $e)
+        // {
+        //     return 'we have catched exception';
+        // }
+        // try
+        // {
+
+        //     $product = Product::findOrFail($id);
+        // }
+        // catch(ModelNotFoundException $e)
+        // {
+        //     return 'we have catched model not found';
+        // }
+        $product = Product::find($id);
+        
+        return view('products.show',[
+            'product' => $product
+        ]);
     }
 }

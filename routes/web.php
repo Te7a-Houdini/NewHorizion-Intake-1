@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -26,3 +26,14 @@ Route::get('/products/create','ProductController@create')->name('products.create
 Route::post('/products','ProductController@store')->name('products.store')->middleware('auth');
 
 Route::delete('/products/{id}','ProductController@destroy')->name('products.destroy');
+
+Route::get('/products/{id}','ProductController@show')->name('products.show');
+
+Route::get('categories','CategoryController@index')->name('categories.index');
+
+Route::get(
+    'new-route',
+    function(){
+        return 'new route';
+    }
+);

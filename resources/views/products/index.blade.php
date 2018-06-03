@@ -11,6 +11,7 @@
       <th scope="col">Category Id</th>
       <th scope="col">Image</th>
       <th>Delete</th>
+      <th> View </th>
     </tr>
   </thead>
   <tbody>
@@ -22,12 +23,16 @@
       <td>{{$product->category_id}}</td>
       <td><img width="60" height="60" src="{{Storage::url($product->image)}}"  ></td>
 
-    <td>
-      <form method="POST" action="/products/{{$product->id}}">
-        @csrf
-        @method('DELETE')
-        <input type="submit" class="btn btn-danger" value="Delete">
-      </form>
+      <td>
+        <form method="POST" action="/products/{{$product->id}}">
+          @csrf
+          @method('DELETE')
+          <input type="submit" class="btn btn-danger" value="Delete">
+        </form>
+      </td>
+
+      <td>
+          <a class="btn btn-primary" href="/products/{{$product->id}}"> View </a>
       </td>
     </tr>
 @endforeach
