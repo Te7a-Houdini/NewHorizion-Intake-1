@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
-use App\Http\Requests\StoreProductRequest;
+// use App\Http\Requests\StoreProductRequest;
 use Storage;
 use Mail;
 use App\Mail\ProductDestroyedMail;
-use Log;
+// use Log;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -16,7 +16,8 @@ class ProductController extends Controller
 {
     public function index ()
     {
-        Log::info('htting products index method');
+        \Debugbar::disable();
+        \Log::info('htting products index method');
 
         $products = Product::get();
 
@@ -29,7 +30,7 @@ class ProductController extends Controller
         return view('products.create');
     }
 
-    public function store (StoreProductRequest $request)
+    public function store (\App\Http\Requests\StoreProductRequest $request)
     {
         // $request->validate([
         //     'name' => 'required|min:3',
@@ -46,7 +47,8 @@ class ProductController extends Controller
         Product::create([
             'name' => $name,
             'category_id' => $categoryId,
-            'image' => $path
+            'image' => $path,
+            //'slug' =>  str_slug($name)
         ]);
 
       return redirect()->route('products.index');
@@ -84,7 +86,7 @@ class ProductController extends Controller
         //     return 'we have catched model not found';
         // }
         $product = Product::find($id);
-        
+     
         return view('products.show',[
             'product' => $product
         ]);
