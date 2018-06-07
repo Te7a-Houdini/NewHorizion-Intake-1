@@ -20,7 +20,7 @@
     <tr>
       <th scope="row">{{$product->id}}</th>
       <td>{{$product->name}}</td>
-      <td>{{$product->category_id}}</td>
+      <td>{{ optional($product->category)->name}}</td>
       <td><img width="60" height="60" src="{{Storage::url($product->image)}}"  ></td>
 
       <td>

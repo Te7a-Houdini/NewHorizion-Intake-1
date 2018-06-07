@@ -16,10 +16,10 @@ class ProductController extends Controller
 {
     public function index ()
     {
-        \Debugbar::disable();
         \Log::info('htting products index method');
 
-        $products = Product::get();
+        //Eager Loading  https://laravel.com/docs/5.6/eloquent-relationships#eager-loading
+        $products = Product::with('category')->get();
 
         return view('products.index')
         ->with('products',$products);
@@ -86,7 +86,7 @@ class ProductController extends Controller
         //     return 'we have catched model not found';
         // }
         $product = Product::find($id);
-     
+        
         return view('products.show',[
             'product' => $product
         ]);
