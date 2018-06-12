@@ -56,12 +56,12 @@ class ProductController extends Controller
 
     public function destroy($productId,Request $request)
     {
+      
+        $product = Product::find($productId);
+        $product->delete();
 
-        Mail::to($request->user())->send(new ProductDestroyedMail);
-
-        // $product = Product::find($productId);
+       // Mail::to($request->user())->send(new ProductDestroyedMail);
         // Storage::disk('public')->delete($product->image);
-        // $product->delete();
         // // Product::where('id',$productId)->delete();
         
         return redirect()->route('products.index');

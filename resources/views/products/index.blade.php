@@ -12,11 +12,11 @@
       <th scope="col">Image</th>
       <th>Delete</th>
       <th> View </th>
+      <th> Delete By Ajax </th>
     </tr>
   </thead>
   <tbody>
   @foreach($products as $product)
-
     <tr>
       <th scope="row">{{$product->id}}</th>
       <td>{{$product->name}}</td>
@@ -34,11 +34,44 @@
       <td>
           <a class="btn btn-primary" href="/products/{{$product->id}}"> View </a>
       </td>
+
+      <td>
+          <a id="{{$product->id}}" class="btn btn-info delete-by-ajax" href="/google.com"> Delete By Ajax </a>
+      </td>
     </tr>
 @endforeach
 
   </tbody>
 </table>
 
+<script>
+$('.delete-by-ajax').click(function(event){
+  event.preventDefault();
+
+var ajaxConfiguration = {
+   'url' : '/products/' + $(this).attr('id'),
+   'method' : 'POST',
+   'data' : {
+     '_method' : 'DELETE',
+     '_token' : '{{csrf_token()}}'
+   }};
+
+ $.ajax( ajaxConfiguration)
+  .done(function() {
+    //after ajax request
+    $(this).parent().parent().css('display','none')
+  })
+  .fail(function(error) {
+    console.log( error );
+  });
+
+
+
+ //another method to remove dom element
+  //$(this).parent().parent().remove()
+  //$(this).parent().parent().css('display','none')
+ 
+});
+</script>
 </div>
 @endsection

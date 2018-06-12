@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
+<input class="form-control" type="text" id="greetingInput" value="hello" >
+
+<h1 id="greetingMessage"></h1>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -66,4 +71,13 @@
         </div>
     </div>
 </div>
+    <!-- this is the script to bind the greetin message with the input -->
+<script>
+$('#greetingInput').keyup(function(){
+
+    var message = $(this).val();
+
+    $('#greetingMessage').html(message)
+});
+</script>
 @endsection
